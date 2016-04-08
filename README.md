@@ -63,7 +63,7 @@ Scroller建议用ScrollerCompat代替，而且还有Scroller Fling的用法
 
 
 ### RecycleView的简单使用
-
+大量抄袭了这篇文章：[Introducing RecyclerView(一)](http://jinyudong.com/2014/11/13/Introduce-RecyclerView-%E4%B8%80/)
 
 #####  1.LayoutManager
 
@@ -130,3 +130,8 @@ public static class ViewHolder extends RecyclerView.ViewHolder implements View.O
         }
 }
 ```
+#####  5.添加删除数据
+和listview使用相同，在改变数据后用Adapter的notifyDatasetChange就可以了。但是有更友善的方法：
+notifyItemInserted(position)和notifyItemRemoved(position)
+这两种方法都是有默认动画的，同时可以添加自己的Animator
+`mRecyclerView.setItemAnimator(newDefaultItemAnimator());`
