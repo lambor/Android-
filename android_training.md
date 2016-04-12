@@ -7,10 +7,10 @@
 
 how to use the v7 appcompat support library's Toolbar widget as an app bar.
 
-**what is Toolbar (v7 appcompat support library's Toolbar) ?**
+**what is Toolbar (v7 appcompat support library's Toolbar) ?**  
 `public class Toolbar extends ViewGroup`
 
-**why use Toolbar ?**
+**why use Toolbar  ?**  
 using the appcompat Toolbar makes it easy to set up an app bar that works on the widest range of devices, and also gives you room to customize your app bar later on as your app develops.
 
 
@@ -108,11 +108,11 @@ All action buttons and other items available in the action overflow are defined 
 </menu>
 ```
 
-（1）`app:showAsAction="ifRoom"`
+（1）`app:showAsAction="ifRoom"`  
 the action is displayed as a button if there is room in the app bar for it.如果ActionBar还有空间就显示为一个按钮。
-（2）`app:showAsAction="never"`
+（2）`app:showAsAction="never"`  
 the action is always listed in the overflow menu, not displayed in the app bar.一定存在下拉菜单中。
-（3）`app:showAsAction="always"`
+（3）`app:showAsAction="always"`  
 一定显示为按钮。
 
 **2.Where add menu in code**
