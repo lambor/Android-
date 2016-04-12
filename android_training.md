@@ -4,13 +4,15 @@
 
 
 ### Adding the App Bar
- how to use the v7 appcompat support library's Toolbar widget as an app bar.
 
- **what is Toolbar (v7 appcompat support library's Toolbar) ?**
- `public class Toolbar extends ViewGroup`
+how to use the v7 appcompat support library's Toolbar widget as an app bar.
 
- **why use Toolbar ?**
- using the appcompat Toolbar makes it easy to set up an app bar that works on the widest range of devices, and also gives you room to customize your app bar later on as your app develops.
+**what is Toolbar (v7 appcompat support library's Toolbar) ?**
+`public class Toolbar extends ViewGroup`
+
+**why use Toolbar ?**
+using the appcompat Toolbar makes it easy to set up an app bar that works on the widest range of devices, and also gives you room to customize your app bar later on as your app develops.
+
 
 ##### Setting Up the App Bar 设置一个简单AppBar
 
