@@ -16,7 +16,7 @@ using the appcompat Toolbar makes it easy to set up an app bar that works on the
 
 ##### Setting Up the App Bar 设置一个简单AppBar
 
-1.Add the the v7 appcompat support library to your project, as described in Support Library Setup.
+1.Add the the v7 appcompat support library to your project, as described in Support Library Setup.  
 加依赖。（添加 v7 appcompat support library）
 
 ```
@@ -25,7 +25,7 @@ dependencies {
 }
 ```
 
-2.Make sure the activity extends AppCompatActivity:
+2.Make sure the activity extends AppCompatActivity:  
 改继承：（使用AppCompatActivity替换Activity）
 ```
 public class MyActivity extends AppCompatActivity {
@@ -33,7 +33,7 @@ public class MyActivity extends AppCompatActivity {
 }
 ```
 
-3.In the app manifest, set the `<application>` element to use one of appcompat's NoActionBar themes. Using one of these themes prevents the app from using the native ActionBar class to provide the app bar. For example:
+3.In the app manifest, set the `<application>` element to use one of appcompat's NoActionBar themes. Using one of these themes prevents the app from using the native ActionBar class to provide the app bar. For example:  
 添样式：（默认样式已经设置了ActionBar）
 
 ```xml
@@ -41,7 +41,7 @@ public class MyActivity extends AppCompatActivity {
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 ```
 
-4.Add a Toolbar to the activity's layout.
+4.Add a Toolbar to the activity's layout.  
 使用Toolbar。
 
 ```xml
@@ -55,12 +55,11 @@ public class MyActivity extends AppCompatActivity {
    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 ```
 
-（1）`android:elevation="4dp"`
-The Material Design specification recommends that app bars have an elevation of 4 dp.
-（2）`android:layout_height="?attr/actionBarSize"`
-Toolbar的layout_height属性，要用“?attr/actionBarSize”而不是“?android:attr/actionBarSize”，替换后可解决NavigationIcon不垂直居中的问题。
-原因是系统的actionBarSize比AppCompat中的要小。使用“?android:attr/actionBarSize”调用了较小的那个。
-（3）`app:popupTheme="@style/ThemeOverlay.AppCompat.Light"`
+（1）`android:elevation="4dp"`  
+The Material Design specification recommends that app bars have an elevation of 4 dp.  
+（2）`android:layout_height="?attr/actionBarSize"`  
+Toolbar的layout_height属性，要用“?attr/actionBarSize”而不是“?android:attr/actionBarSize”，替换后可解决NavigationIcon不垂直居中的问题原因是系统的actionBarSize比AppCompat中的要小。使用“?android:attr/actionBarSize”调用了较小的那个。  
+（3）`app:popupTheme="@style/ThemeOverlay.AppCompat.Light"`  
 有时候我们有需求：
 
 ActionBar文字是白的，ActionBar Overflow弹出的是白底黑字
@@ -69,7 +68,7 @@ ActionBar文字是白的，ActionBar Overflow弹出的是白底黑字
 可是让ActionBar弹出的是白底黑字，那么需要Light主题。
 这时候`popupTheme`就派上用场了。
 
-5.In the activity's onCreate() method, call the activity's setSupportActionBar() method, and pass the activity's toolbar. This method sets the toolbar as the app bar for the activity.
+5.In the activity's onCreate() method, call the activity's setSupportActionBar() method, and pass the activity's toolbar. This method sets the toolbar as the app bar for the activity.  
 设ActionBar（将Toolbar设置为默认的ActionBar）。
 
 ```java
