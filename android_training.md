@@ -1,11 +1,13 @@
 # Android Training
+
 跟着google developers官网学习android
+
 
 ### Adding the App Bar
  how to use the v7 appcompat support library's Toolbar widget as an app bar.
 
  **what is Toolbar (v7 appcompat support library's Toolbar) ?**
-`public class Toolbar extends ViewGroup`
+ `public class Toolbar extends ViewGroup`
 
  **why use Toolbar ?**
  using the appcompat Toolbar makes it easy to set up an app bar that works on the widest range of devices, and also gives you room to customize your app bar later on as your app develops.
@@ -14,6 +16,7 @@
 
 1.Add the the v7 appcompat support library to your project, as described in Support Library Setup.
 加依赖。（添加 v7 appcompat support library）
+
 ```
 dependencies {
   compile 'com.android.support:appcompat-v7:23.2.1'
@@ -30,14 +33,16 @@ public class MyActivity extends AppCompatActivity {
 
 3.In the app manifest, set the `<application>` element to use one of appcompat's NoActionBar themes. Using one of these themes prevents the app from using the native ActionBar class to provide the app bar. For example:
 添样式：（默认样式已经设置了ActionBar）
-```
+
+```xml
 <application
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 ```
 
 4.Add a Toolbar to the activity's layout.
 使用Toolbar。
-```
+
+```xml
 <android.support.v7.widget.Toolbar
    android:id="@+id/my_toolbar"
    android:layout_width="match_parent"
@@ -47,6 +52,7 @@ public class MyActivity extends AppCompatActivity {
    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 ```
+
 （1）`android:elevation="4dp"`
 The Material Design specification recommends that app bars have an elevation of 4 dp.
 （2）`android:layout_height="?attr/actionBarSize"`
@@ -63,6 +69,7 @@ ActionBar文字是白的，ActionBar Overflow弹出的是白底黑字
 
 5.In the activity's onCreate() method, call the activity's setSupportActionBar() method, and pass the activity's toolbar. This method sets the toolbar as the app bar for the activity.
 设ActionBar（将Toolbar设置为默认的ActionBar）。
+
 ```java
 @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +87,7 @@ protected void onCreate(Bundle savedInstanceState) {
 **1.Add Action Buttons**
 All action buttons and other items available in the action overflow are defined in an XML menu resource. To add actions to the action bar, create a new XML file in your project's res/menu/ directory.
 所有的操作按钮和在下拉列表中的选项都定义在菜单资源文件中，次文件保存在res/menu文件夹中。
+
 ```xml
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
@@ -97,6 +105,7 @@ All action buttons and other items available in the action overflow are defined 
 
 </menu>
 ```
+
 （1）`app:showAsAction="ifRoom"`
 the action is displayed as a button if there is room in the app bar for it.如果ActionBar还有空间就显示为一个按钮。
 （2）`app:showAsAction="never"`
@@ -136,13 +145,16 @@ public boolean onOptionsItemSelected(MenuItem item) {
 ```
 
 ##### Adding an Up Action 添加返回上一页面（Activity）功能
+
 **1.Declare a Parent Activity 声明父activity**
+
 通过添加
 `<meta-data
     android:name="android.support.PARENT_ACTIVITY"
     android:value="com.example.myfirstapp.MainActivity" />`
 为Activity指明父Activity，
-```java
+
+```xml
 <application ... >
     ...
 
@@ -166,7 +178,9 @@ public boolean onOptionsItemSelected(MenuItem item) {
     </activity>
 </application>
 ```
+
 然后在代码中：`getSupportActionBar().setDisplayHomeAsUpEnabled(true)`
+
 ```java
 @Override
 protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +201,7 @@ protected void onCreate(Bundle savedInstanceState) {
 ```
 
 **2.比较简单的方法：直接在代码中finish()**
+
 ```java
 protected void onCreate(Bundle savedInstanceState) {
   ...
