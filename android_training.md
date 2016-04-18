@@ -60,7 +60,7 @@ The Material Design specification recommends that app bars have an elevation of 
 （2）`android:layout_height="?attr/actionBarSize"`  
 Toolbar的layout_height属性，要用“?attr/actionBarSize”而不是“?android:attr/actionBarSize”，替换后可解决NavigationIcon不垂直居中的问题原因是系统的actionBarSize比AppCompat中的要小。使用“?android:attr/actionBarSize”调用了较小的那个。  
 （3）`app:popupTheme="@style/ThemeOverlay.AppCompat.Light"`  
-有时候我们有需求：
+有时候我们有需求 :
 
 ActionBar文字是白的，ActionBar Overflow弹出的是白底黑字
 
@@ -220,3 +220,88 @@ protected void onCreate(Bundle savedInstanceState) {
     }
 }
 ```
+
+##### Add an Action View 使用Action View
+
+To add an action view, create an <item> element in the toolbar's menu resource, as Add Action Buttons describes. Add one of the following two attributes to the <item> element:  
+
+* `actionViewClass`: The class of a widget that implements the action.  
+* `actionLayout`: A layout resource describing the action's components.  
+
+Set the  `showAsAction` attribute to either "ifRoom|collapseActionView" or "never|collapseActionView". The collapseActionView flag indicates how to display the widget when the user is not interacting with it: If the widget is on the app bar, the app should display the widget as an icon. If the widget is in the overflow menu, the app should display the widget as a menu item. When the user interacts with the action view, it expands to fill the app bar.
+
+For example, the following code adds a SearchView widget to the app bar:   
+```xml
+<item android:id="@+id/action_search"
+     android:title="@string/action_search"
+     android:icon="@drawable/ic_search"
+     app:showAsAction="ifRoom|collapseActionView"
+     app:actionViewClass="android.support.v7.widget.SearchView" />
+```
+If the user is not interacting with the widget, the app displays the widget as the icon specified by android:icon. (If there is not enough room in the app bar, the app adds the action to the overflow menu.) When the user taps the icon or menu item, the widget expands to fill the toolbar, allowing the user to interact with it.
+
+If you need to configure the action, do so in your activity's onCreateOptionsMenu() callback. You can get the action view's object reference by calling the static getActionView() method. For example, the following code gets the object reference for the SearchView widget defined in the previous code example:  
+```java
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.main_activity_actions, menu);
+
+    MenuItem searchItem = menu.findItem(R.id.action_search);
+    SearchView searchView =
+            (SearchView) MenuItemCompat.getActionView(searchItem);
+
+    // Configure the search info and add any event listeners...
+
+    return super.onCreateOptionsMenu(menu);
+}
+```
+
+##### Responding to action view expansion
+
+f the action's <item> element has a `collapseActionView `flag, the app displays the action view as an icon until the user interacts with the action view. When the user clicks on the icon, the built-in handler for `onOptionsItemSelected() `expands the action view. If your activity subclass overrides the `onOptionsItemSelected()` method, your override method must call `super.onOptionsItemSelected()` so the superclass can expand the action view.
+
+If you want to do something when the action is expanded or collapsed, you can define a class that implements `MenuItem.OnActionExpandListener`, and pass a member of that class to setOnActionExpandListener(). For example, you might want to update the activity based on whether an action view is expanded or collapsed. The following snippet shows how to define and pass a listener:  
+```java
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.options, menu);
+    // ...
+
+    // Define the listener
+    OnActionExpandListener expandListener = new OnActionExpandListener() {
+        @Override
+        public boolean onMenuItemActionCollapse(MenuItem item) {
+            // Do something when action item collapses
+            return true;  // Return true to collapse action view
+        }
+
+        @Override
+        public boolean onMenuItemActionExpand(MenuItem item) {
+            // Do something when expanded
+            return true;  // Return true to expand action view
+        }
+    };
+
+    // Get the MenuItem for the action item
+    MenuItem actionMenuItem = menu.findItem(R.id.myActionItem);
+
+    // Assign the listener to that action item
+    MenuItemCompat.setOnActionExpandListener(actionMenuItem, expandListener);
+
+    // Any other things you have to do when creating the options menu…
+
+    return true;
+}
+```
+
+##### Add an Action Provider
+To declare an action provider, create an <item> element in the toolbar's menu resource, as described in Add Action Buttons. Add an actionProviderClass attribute, and set it to the fully qualified class name for the action provider class.  
+
+For example, the following code declares a ShareActionProvider, which is a widget defined in the support library that allows your app to share data with other apps:
+```xml
+<item android:id="@+id/action_share"
+    android:title="@string/share"
+    app:showAsAction="ifRoom"
+    app:actionProviderClass="android.support.v7.widget.ShareActionProvider"/>
+```
+In this case, it is not necessary to declare an icon for the widget, since ShareActionProvider provides its own graphics. If you are using a custom action, declare an icon.
